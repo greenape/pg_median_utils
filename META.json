@@ -4,7 +4,7 @@
   "description": "Median filter and iterative median filter window functions for Postgres",
   "version": "0.0.1",
   "maintainer": "Jono Gray <jono@nanosheep.net>",
-  "license": "MIT",
+  "license": "mit",
   "provides": {
     "pg_median_utils": {
       "abstract": "Median filter and iterative median filter window functions for Postgres",
@@ -18,7 +18,7 @@
       "web": "https://github.com/greenape/pg_median_utils/issues"
     },
     "repository": {
-      "url":  "git@github.com:greenape/pg_median_utils.git",
+      "url":  "git://github.com/greenape/pg_median_utils.git",
       "web":  "https://github.com/greenape/pg_median_utils",
       "type": "git"
     }
