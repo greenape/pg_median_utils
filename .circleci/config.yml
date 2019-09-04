@@ -1,0 +1,38 @@
+version: 2.1
+
+defaults:
+  - &run_always_org_context
+    context: org-global
+    filters:
+      tags:
+        only: /.*/
+      branches:
+        ignore: gh-pages
+  - &master_only_org_context
+    context: org-global
+    filters:
+      branches:
+        only: master
+  - &tag_only_org_context
+    context: org-global
+    filters:
+      branches:
+        ignore: /.*/
+      tags:
+        only: /.*/
+jobs:
+  build_and_test:
+    docker:
+      - image: postgres
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
+      - run: make
+      - run: make install
+      - run: make installcheck
+
+workflows:
+  run_build_pipeline:
+    jobs:
+      - build_and_test:
+          <<: *run_always_org_context
