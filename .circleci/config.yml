@@ -26,7 +26,7 @@ jobs:
       - image: postgres
     working_directory: /home/circleci/project
     steps:
-      - run: apt update && apt install -y git
+      - run: apt update && apt install -y git postgresql-server-dev-$PG_MAJOR build-essential
       - checkout
       - run: make
       - run: make install
