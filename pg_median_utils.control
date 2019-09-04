@@ -1,4 +1,4 @@
-# pg_median extension
+# pg_median_utils extension
 comment = 'Median related utility functions'
 default_version = '0.0.1'
 relocatable = true

@@ -1,6 +1,6 @@
-#ifndef PG_MEDIAN_QUICK_SELECT_H
-#define PG_MEDIAN_QUICK_SELECT_H
+#ifndef PG_MEDIAN_UTILS_QUICK_SELECT_H
+#define PG_MEDIAN_UTILS_QUICK_SELECT_H
 
 double quick_select(double arr[], int n);
 
-#endif //PG_MEDIAN_QUICK_SELECT_H
+#endif //PG_MEDIAN_UTILS_QUICK_SELECT_H

@@ -1,13 +1,13 @@
-EXTENSION 	  = pg_median# the extensions name
+EXTENSION 	  = pg_median_utils# the extensions name
 DATA          = $(wildcard *--*.sql)            # script files to install
 TESTS         = $(wildcard test/sql/*.sql)      # use test/sql/*.sql as testfiles
 
 # find the sql and expected directories under test
 # load plpgsql into test db
-# load pg_median extension into test db
+# load pg_median_utils extension into test db
 # dbname
 REGRESS_OPTS  = --inputdir=test         \
-                --load-extension=pg_median \
+                --load-extension=pg_median_utils \
                 --load-language=plpgsql
 REGRESS       = $(patsubst test/sql/%.sql,%,$(TESTS))
 OBJS          = $(patsubst %.c,%.o,$(wildcard src/*.c)) # object files
