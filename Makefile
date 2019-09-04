@@ -17,7 +17,7 @@ MODULE_big    = $(EXTENSION)
 PG_CONFIG    = pg_config
 
 
-ifeq ($(PG96), "no")
+ifeq ($(PG96), no)
 $(error Minimum version of PostgreSQL required is 9.6.0)
 endif
 
