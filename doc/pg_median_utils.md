@@ -1,8 +1,8 @@
 pg_median_utils 0.0.1
-=============
+=====================
 
 
-A postgres extension containing some median-related utilities.
+An extension for PostgreSQL >= 9.6 containing some median-related utilities.
 
 At this time, provides two window functions - one for applying a median filter, which behaves the same as SciPy's [medfilt](https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.signal.medfilt.html), and a second which applies the median filter iteratively until it converges (no change greater than some small value). 
 
