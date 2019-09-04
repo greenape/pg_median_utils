@@ -4,7 +4,7 @@
  *  Cambridge University Press, 1992, Section 8.5, ISBN 0-521-43108-5
  *  This code by Nicolas Devillard - 1998. Public domain.
  */
-
+#include "quick_select.h"
 
 #define ELEM_SWAP(a, b) { register double t=(a);(a)=(b);(b)=t; }
 
