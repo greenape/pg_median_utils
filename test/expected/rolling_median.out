@@ -1,0 +1,60 @@
+SELECT v,  rolling_median(v::double precision, 5) over() FROM generate_series(1, 10) as t(v);
+ v  | rolling_median 
+----+----------------
+  1 |               
+  2 |               
+  3 |               
+  4 |               
+  5 |              3
+  6 |              4
+  7 |              5
+  8 |              6
+  9 |              7
+ 10 |              8
+(10 rows)
+
+SELECT v,  rolling_median(v, 3) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (0.95), (2.1), (1.95), (2.0), (2.05), (3.11), (2.99), (3.05), (3.0)) as t(v);
+  v   | rolling_median 
+------+----------------
+    1 |               
+  1.1 |               
+  0.9 |              1
+  1.1 |            1.1
+ 0.95 |           0.95
+  2.1 |            1.1
+ 1.95 |           1.95
+  2.0 |              2
+ 2.05 |              2
+ 3.11 |           2.05
+ 2.99 |           2.99
+ 3.05 |           3.05
+  3.0 |              3
+(13 rows)
+
+SELECT v,  rolling_median(v, 3) over() FROM (VALUES (1), (1.1)) as t(v);
+  v  | rolling_median 
+-----+----------------
+   1 |               
+ 1.1 |               
+(2 rows)
+
+SELECT v,  rolling_median(v::double precision, 3) over() FROM (VALUES (NULL), (NULL), (NULL)) as t(v);
+ v | rolling_median 
+---+----------------
+   |               
+   |               
+   |               
+(3 rows)
+
+SELECT v,  rolling_median(v, 3) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (NULL), (NULL), (1.95)) as t(v);
+  v   | rolling_median 
+------+----------------
+    1 |               
+  1.1 |               
+  0.9 |              1
+  1.1 |            1.1
+      |               
+      |               
+ 1.95 |               
+(7 rows)
+

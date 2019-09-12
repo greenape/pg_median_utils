@@ -2,7 +2,7 @@
   "name": "pg_median_utils",
   "abstract": "Median filter and iterative median filter window functions for Postgres",
   "description": "Median filter and iterative median filter window functions for Postgres",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "maintainer": "Jono Gray <jono@nanosheep.net>",
   "license": "mit",
   "provides": {
@@ -10,7 +10,7 @@
       "abstract": "Median filter and iterative median filter window functions for Postgres",
       "file": "sql/pg_median_utils.sql",
       "docfile": "doc/pg_median_utils.md",
-      "version": "0.0.1"
+      "version": "0.0.2"
     }
   },
   "resources": {

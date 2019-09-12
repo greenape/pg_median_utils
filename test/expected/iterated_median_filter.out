@@ -1,51 +1,66 @@
-SELECT iterated_median_filter(v::double precision, 5) over() FROM generate_series(1, 10) as t(v);
- iterated_median_filter 
-------------------------
-                      1
-                      2
-                      3
-                      4
-                      5
-                      6
-                      7
-                      8
-                      8
-                      8
+SELECT v,  iterated_median_filter(v::double precision, 5) over() FROM generate_series(1, 10) as t(v);
+ v  | iterated_median_filter 
+----+------------------------
+  1 |                      1
+  2 |                      2
+  3 |                      3
+  4 |                      4
+  5 |                      5
+  6 |                      6
+  7 |                      7
+  8 |                      8
+  9 |                      8
+ 10 |                      8
 (10 rows)
 
-SELECT iterated_median_filter(v, 3) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (0.95), (2.1), (1.95), (2.0), (2.05), (3.11), (2.99), (3.05), (3.0)) as t(v);
- iterated_median_filter 
-------------------------
-                      1
-                      1
-                      1
-                    1.1
-                    1.1
-                   1.95
-                      2
-                      2
-                   2.05
-                   2.99
-                      3
-                      3
-                      3
+SELECT v,  iterated_median_filter(v, 3) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (0.95), (2.1), (1.95), (2.0), (2.05), (3.11), (2.99), (3.05), (3.0)) as t(v);
+  v   | iterated_median_filter 
+------+------------------------
+    1 |                      1
+  1.1 |                      1
+  0.9 |                      1
+  1.1 |                    1.1
+ 0.95 |                    1.1
+  2.1 |                   1.95
+ 1.95 |                      2
+  2.0 |                      2
+ 2.05 |                   2.05
+ 3.11 |                   2.99
+ 2.99 |                      3
+ 3.05 |                      3
+  3.0 |                      3
 (13 rows)
 
-SELECT iterated_median_filter(v, 3, 'inf'::double precision) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (0.95), (2.1), (1.95), (2.0), (2.05), (3.11), (2.99), (3.05), (3.0)) as t(v);
- iterated_median_filter 
-------------------------
-                      1
-                      1
-                    1.1
-                   0.95
-                    1.1
-                   1.95
-                      2
-                      2
-                   2.05
-                   2.99
-                   3.05
-                      3
-                      3
+SELECT v,  iterated_median_filter(v, 3, 'inf'::double precision) over() FROM (VALUES (1), (1.1), (0.9), (1.1), (0.95), (2.1), (1.95), (2.0), (2.05), (3.11), (2.99), (3.05), (3.0)) as t(v);
+  v   | iterated_median_filter 
+------+------------------------
+    1 |                      1
+  1.1 |                      1
+  0.9 |                    1.1
+  1.1 |                   0.95
+ 0.95 |                    1.1
+  2.1 |                   1.95
+ 1.95 |                      2
+  2.0 |                      2
+ 2.05 |                   2.05
+ 3.11 |                   2.99
+ 2.99 |                   3.05
+ 3.05 |                      3
+  3.0 |                      3
 (13 rows)
+
+SELECT v,  iterated_median_filter(v, 3) over() FROM (VALUES (1), (1.1)) as t(v);
+  v  | iterated_median_filter 
+-----+------------------------
+   1 |                      1
+ 1.1 |                      1
+(2 rows)
+
+SELECT v,  iterated_median_filter(v::double precision, 3) over() FROM (VALUES (NULL), (NULL), (NULL)) as t(v);
+ v | iterated_median_filter 
+---+------------------------
+   |                      0
+   |                      0
+   |                      0
+(3 rows)
 

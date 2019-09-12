@@ -4,9 +4,9 @@
 #include "quick_select.h"
 
 
-PG_FUNCTION_INFO_V1(median_filter);
+PG_FUNCTION_INFO_V1(rolling_median);
 
-Datum median_filter(PG_FUNCTION_ARGS) {
+Datum rolling_median(PG_FUNCTION_ARGS) {
     WindowObject win_obj = PG_WINDOW_OBJECT();
     uint32_t row = WinGetCurrentPosition(win_obj);
     uint32_t j;
@@ -32,21 +32,21 @@ Datum median_filter(PG_FUNCTION_ARGS) {
         }
     }
 
-    uint32_t offset = (window_size - 1) / 2;
-    med = palloc(window_size * sizeof(double));
-    memset(med, 0.0, window_size * sizeof(double));
-    for (j = 0; j < window_size; j++) {
-        if (((row + j - offset) < WinGetPartitionRowCount(win_obj)) && ((row + j) >= offset)) {
-            value = WinGetFuncArgInPartition(win_obj, 0, row + j - offset,
-                                             WINDOW_SEEK_HEAD, false, &isnull, &isout);
-            med[j] = DatumGetFloat8(value);
-            if(isnull) {
-                PG_RETURN_NULL();
-            }
+    if (row > (window_size-2)) {
+        med = palloc(window_size * sizeof(double));
+        for (j = 0; j < window_size; j++) {
+                value = WinGetFuncArgInPartition(win_obj, 0, row - j,
+                                                 WINDOW_SEEK_HEAD, false, &isnull, &isout);
+                med[j] = DatumGetFloat8(value);
+                if(isnull) {
+                    PG_RETURN_NULL();
+                }
         }
-    }
 
-    median = quick_select(med, window_size);
-    pfree(med);
-    PG_RETURN_FLOAT8(median);
+        median = quick_select(med, window_size);
+        pfree(med);
+        PG_RETURN_FLOAT8(median);
+    } else {
+        PG_RETURN_NULL();
+    }
 }
