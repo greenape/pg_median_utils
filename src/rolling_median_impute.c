@@ -101,10 +101,13 @@ Datum rolling_median_impute(PG_FUNCTION_ARGS) {
         double *median;
         median = medians;
         int median_ix = 1;
+        int not_nulls;
+        not_nulls = 0;
         for(i = 0; i < nelems; i++) {
             value = WinGetFuncArgInPartition(win_obj, 0, i,
                                              WINDOW_SEEK_HEAD, false, &isnull, &isout);
-            if(!isnull && (median_ix < n_not_null)) {
+            not_nulls += isnull;
+            if(!isnull && (not_nulls % window_size == 0) && (median_ix < n_not_null)) {
                 /* Move median ix on one */
                 median++;
                 median_ix++;
