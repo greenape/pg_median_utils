@@ -1,5 +1,8 @@
-pg_median_utils 0.0.6
+pg_median_utils 0.0.7
 =====================
+
+[![PGXN version](https://badge.fury.io/pg/pg_median_utils.svg)](https://badge.fury.io/pg/pg_median_utils) [![Build Status](https://travis-ci.org/greenape/pg_median_utils.svg)](https://travis-ci.org/greenape/pg_median_utils)
+
 
 
 An extension for PostgreSQL >= 9.6 containing some median-related utilities.
