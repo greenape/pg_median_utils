@@ -98,21 +98,20 @@ Datum rolling_median_impute(PG_FUNCTION_ARGS) {
             medians[i] = medians[window_size-1];
         }
 
-        double *median;
-        median = medians;
-        int median_ix = 1;
+        int median_ix = 0;
         int not_nulls;
         not_nulls = 0;
         for(i = 0; i < nelems; i++) {
             value = WinGetFuncArgInPartition(win_obj, 0, i,
                                              WINDOW_SEEK_HEAD, false, &isnull, &isout);
-            not_nulls += isnull;
-            if(!isnull && (not_nulls % window_size == 0) && (median_ix < n_not_null)) {
+            if(!isnull) {
+                not_nulls++;
+            }
+            if(!isnull && (median_ix < (n_not_null - 1))) {
                 /* Move median ix on one */
-                median++;
                 median_ix++;
             }
-            context->median[i] = *median;
+            context->median[i] = medians[median_ix];
         }
 
     }

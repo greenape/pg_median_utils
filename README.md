@@ -1,4 +1,4 @@
-pg_median_utils 0.0.5
+pg_median_utils 0.0.6
 =====================
 
 
