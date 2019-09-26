@@ -39,10 +39,21 @@ SELECT v,  rolling_median_impute(v, 3) over() FROM (VALUES (1), (1.1), (0.9), (N
  3.11 |                  3.11
  2.99 |                  2.99
  3.05 |                  3.05
-      |                  2.99
+      |                  3.05
 (13 rows)
 
 SELECT v,  rolling_median_impute(v::double precision, 3) over() FROM (VALUES (NULL), (NULL), (NULL)) as t(v);
 ERROR:  Too few non-nulls
 DETAIL:  window size 3 is greater than total number of non-null elements in partition: 0
 HINT:  reduce window size
+SELECT v, rolling_median_impute(v, 3) over() FROM (VALUES (9343667.56611), (9357699.85564), (NULL), (9299919.02793), (9343667.56611), (NULL)) as t(v);
+       v       | rolling_median_impute 
+---------------+-----------------------
+ 9343667.56611 |         9343667.56611
+ 9357699.85564 |         9357699.85564
+               |         9343667.56611
+ 9299919.02793 |         9299919.02793
+ 9343667.56611 |         9343667.56611
+               |         9343667.56611
+(6 rows)
+
