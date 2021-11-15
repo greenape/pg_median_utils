@@ -28,7 +28,7 @@ jobs:
     steps:
       - run:
           background: true
-          command: /usr/local/bin/docker-entrypoint.sh postgres
+          command: POSTGRES_HOST_AUTH_METHOD=trust /usr/local/bin/docker-entrypoint.sh postgres
       - run: apt update && apt install -y git postgresql-server-dev-$PG_MAJOR build-essential
       - checkout
       - run: make
